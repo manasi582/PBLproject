@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Page</title>
+    <link rel="stylesheet" href="group1style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="./static/logo.png" alt="Logo" class="logo">
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="group.html">Group</a></li>
+                <li><a href="#">Unlock Perks</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <div class="nav-icons">
+            <span class="nav-icon" data-tooltip="Streak">🔥</span>
+            <span class="nav-icon" data-tooltip="Discussions">💬</span>
+            <a href="profile.html">
+                <span class="nav-icon" data-tooltip="My Profile">🙎🏻‍♂️</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="group-container">
+        <h2 class="group-title">Study Buds</h2>
+        <div class="group-content">
+            <div class="group-members-section">
+                <h3>Group Members</h3>
+                <div class="group-members">
+                    <ul>
+                        <li>Komal</li>
+                        <li>Manasi</li>
+                        <li>Sakshi</li>
+                        <li>Anuj</li>
+                    </ul>
+                </div>
+                <input type="text" placeholder="Search users..." class="search-bar">
+                <button class="add-user-btn">Add New User</button>
+            </div>
+            <div class="leaderboard">
+                <h3>Leaderboard</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Points</th>
+                            <th>Streak</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Komal</td>
+                            <td>250</td>
+                            <td>21🔥</td>
+                        </tr>
+                        <tr>
+                            <td>Manasi</td>
+                            <td>230</td>
+                            <td>19🔥</td>
+                        </tr>
+                        <tr>
+                            <td>Sakshi</td>
+                            <td>300</td>
+                            <td>30🔥</td>
+                        </tr>
+                        <tr>
+                            <td>Anuj</td>
+                            <td>275</td>
+                            <td>25🔥</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    // Mocked database (Replace with real backend call)
+    const usersDatabase = [
+        { name: "Aditi", points: 220, streak: 15 },
+        { name: "Rohan", points: 180, streak: 10 },
+        { name: "Vikram", points: 300, streak: 25 },
+        { name: "Neha", points: 250, streak: 20 }
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchBar = document.querySelector(".search-bar");
+        const addUserBtn = document.querySelector(".add-user-btn");
+        const membersList = document.querySelector(".group-members ul");
+        const leaderboardTable = document.querySelector(".leaderboard tbody");
+
+        let selectedUser = null;
+
+        // Search Function
+        searchBar.addEventListener("input", function () {
+            const query = searchBar.value.toLowerCase();
+            selectedUser = usersDatabase.find(user => user.name.toLowerCase().includes(query));
+
+            if (selectedUser) {
+                searchBar.style.border = "2px solid green";
+            } else {
+                searchBar.style.border = "2px solid red";
+            }
+        });
+
+        // Add User Function
+        addUserBtn.addEventListener("click", function () {
+            if (selectedUser) {
+                // Check if user is already in the group
+                const existingMembers = Array.from(membersList.children).map(li => li.textContent);
+                if (existingMembers.includes(selectedUser.name)) {
+                    alert("User is already in the group!");
+                    return;
+                }
+
+                // Add user to Group Members
+                const newMember = document.createElement("li");
+                newMember.textContent = selectedUser.name;
+                membersList.appendChild(newMember);
+
+                // Add user to Leaderboard
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${selectedUser.name}</td>
+                    <td>${selectedUser.points}</td>
+                    <td>${selectedUser.streak}🔥</td>
+                `;
+                leaderboardTable.appendChild(newRow);
+
+                // Reset Search
+                searchBar.value = "";
+                searchBar.style.border = "1px solid black";
+                selectedUser = null;
+                alert("User added successfully!");
+            } else {
+                alert("No valid user selected.");
+            }
+        });
+    });
+</script>
+
+</html>

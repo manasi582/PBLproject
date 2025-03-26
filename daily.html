@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Tasks</title>
+    <link rel="stylesheet" href="dailystyle.css">
+
+</head>
+<body>
+
+    <!-- Fixed Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="./static/logo.png" alt="Logo" class="logo">
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="group.html">Group</a></li>
+                <li><a href="#">Unlock Perks</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <div class="nav-icons">
+            <span class="nav-icon" data-tooltip="Streak">🔥</span>
+            <span class="nav-icon" data-tooltip="Discussions">💬</span>
+            <a href="profile.html">
+                <span class="nav-icon" data-tooltip="My Profile">🙎🏻‍♂️</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="daily-container">
+        <!-- Task Sections -->
+        <div class="task-sections">
+            <div class="task-box easy-tasks">
+                <h3 class="task-header">Easy Tasks</h3>
+                <button class="add-task" onclick="openModal('easy')">+ Add a task</button>
+                <div class="task-list" id="easy-list">
+                    <label><input type="checkbox" class="task-checkbox"> Complete assignment</label><br>
+                    <label><input type="checkbox" class="task-checkbox"> Complete M3 notes</label>
+                </div>
+            </div>
+
+            <div class="task-box medium-tasks">
+                <h3 class="task-header">Medium Tasks</h3>
+                <button class="add-task" onclick="openModal('medium')">+ Add a task</button>
+                <div class="task-list" id="medium-list">
+                    <label><input type="checkbox" class="task-checkbox"> 2 Leetcode problems</label><br>
+                    <label><input type="checkbox" class="task-checkbox"> Trees and Graphs topic</label><br>
+                    <label><input type="checkbox" class="task-checkbox"> Modify code for PBL</label>
+                </div>
+            </div>
+
+            <div class="task-box difficult-tasks">
+                <h3 class="task-header">Difficult Tasks</h3>
+                <button class="add-task" onclick="openModal('difficult')">+ Add a task</button>
+                <div class="task-list" id="difficult-list">
+                    <label><input type="checkbox" class="task-checkbox"> Work on navbar of app</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="pomodoro-timer">
+                <h3>Pomodoro Timer</h3>
+                <button class="start-timer">Start</button>
+            </div>
+            <div class="xp-points">
+                <h2>Reminders</h2>
+                <h4 id="current-date"></h4>
+                <p class="xp-message">Insert daily reminders like important events, birthdays, festivals</p>
+            </div>
+
+            <!-- Progress Bar Section -->
+            <div class="progress-container">
+                <h3>Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p class="progress-text">Progress: <span id="progress-percentage">0%</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Input Modal -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <h3>Add a New Task</h3>
+            <input type="text" id="task-input" placeholder="Enter task...">
+            <button id="save-task">Save</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("current-date").innerText = new Date().toDateString();
+    
+        let currentCategory = "";
+    
+        function openModal(category) {
+            currentCategory = category;
+            document.getElementById("task-modal").style.display = "block";
+        }
+    
+        function closeModal() {
+            document.getElementById("task-modal").style.display = "none";
+            document.getElementById("task-input").value = "";
+        }
+    
+        document.getElementById("save-task").addEventListener("click", function() {
+            const taskText = document.getElementById("task-input").value;
+            if (taskText.trim() !== "") {
+                const list = document.getElementById(`${currentCategory}-list`);
+                
+                // Create a new task item
+                const taskItem = document.createElement("div");
+                taskItem.classList.add("task-item");
+    
+                // Create the checkbox
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.classList.add("task-checkbox");
+                checkbox.addEventListener("change", updateProgress);
+    
+                // Create the label
+                const label = document.createElement("label");
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(" " + taskText));
+    
+                taskItem.appendChild(label);
+                list.appendChild(taskItem);
+    
+                closeModal();
+                updateProgress();
+            }
+        });
+    
+        function updateProgress() {
+            const tasks = document.querySelectorAll(".task-checkbox");
+            const doneTasks = document.querySelectorAll(".task-checkbox:checked").length;
+            const totalTasks = tasks.length;
+            const progressPercentage = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+            
+            document.getElementById("progress-percentage").innerText = `${progressPercentage}%`;
+            document.querySelector(".progress-fill").style.width = `${progressPercentage}%`;
+        }
+    
+        document.querySelectorAll(".task-checkbox").forEach(checkbox => {
+            checkbox.addEventListener("change", updateProgress);
+        });
+    </script>
+    
+
+</body>
+</html>

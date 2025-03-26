@@ -1,0 +1,240 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.nav-icons a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-icons a:hover {
+    opacity: 0.8;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #2c003e, #000000);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #3d1a5f;
+    padding: 15px 50px;
+    width: 100%;
+    color: white;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+    
+}
+
+.nav-links a:hover {
+    background: #7a4eb1;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+}
+/* NAVBAR ICONS */
+.nav-icons {
+    display: flex;
+    gap: 20px;
+    position: relative;
+}
+
+.nav-icon {
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+}
+
+/* TOOLTIP STYLE */
+.nav-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -30px; /* Position tooltip below the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* SHOW TOOLTIP ON HOVER */
+.nav-icon:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+
+/* MAIN CONTAINER */
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 50px;
+    height: calc(100vh - 80px); /* Adjusting for navbar height */
+}
+
+/* TASK BOXES */
+.tasks-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.task-box {
+    background:  hsl(56, 100%, 83%);
+    color: rgb(0, 0, 0);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.task-box:hover {
+    background: #fbf240;
+    transform: scale(1.03);
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* FRIEND & CALENDAR SECTIONS */
+.friend-section, .calendar-section {
+    background: #512d73;
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.friend-section input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #333;
+    font-size: 16px;
+}
+
+.friend-section button {
+    margin-top: 12px;
+    background-color: #ffcc00;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 16px;
+}
+
+.friend-section button:hover {
+    background-color: #e6b800;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .tasks-container {
+        width: 100%;
+        height: auto;
+    }
+
+    .task-box {
+        height: 100px;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        align-items: center;
+    }
+
+    .friend-section, .calendar-section {
+        width: 90%;
+    }
+}

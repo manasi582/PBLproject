@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="profilestyle.css">
+</head>
+<body>
+
+    <!-- Fixed Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="./static/logo.png" alt="Logo" class="logo">
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="group.html">Group</a></li>
+                <li><a href="#">Unlock Perks</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <div class="nav-icons">
+            <span class="nav-icon" data-tooltip="Streak">🔥</span>
+            <span class="nav-icon" data-tooltip="Discussions">💬</span>
+            <a href="profile.html">
+                <span class="nav-icon" data-tooltip="My Profile">🙎🏻‍♂️</span>
+            </a>
+        </div>
+        
+    </nav>
+
+    <!-- Profile Section -->
+    <div class="profile-container">
+        <h2>My Profile</h2>
+
+        <!-- Profile Picture Section -->
+        <div class="profile-pic-container">
+            <div class="profile-pic" id="profilePic">No PFP</div>
+            <input type="file" id="uploadInput" accept="image/*" hidden>
+            <button class="upload-btn" onclick="document.getElementById('uploadInput').click()">Upload Image</button>
+        </div>
+
+        <!-- Profile Fields -->
+        <div class="profile-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+        </div>
+
+        <div class="profile-field">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username">
+        </div>
+
+        <div class="profile-field">
+            <label for="xp-points">Total XP Points</label>
+            <div id="xp-points">1000 XP</div>
+        </div>
+
+        <div class="profile-field">
+            <label for="friends">My Friends</label>
+            <select id="friends">
+                <option>John Doe</option>
+                <option>Jane Smith</option>
+                <option>Another Friend</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profilePic = document.getElementById('profilePic');
+                    profilePic.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+</body>
+</html>

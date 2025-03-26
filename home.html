@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="homestyle.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="./static/logo.png" alt="Logo" class="logo">
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="group.html">Group</a></li>
+                <li><a href="#">Unlock Perks</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <div class="nav-icons">
+            <span class="nav-icon" data-tooltip="Streak">🔥</span>
+            <span class="nav-icon" data-tooltip="Discussions">💬</span>
+            <a href="profile.html">
+                <span class="nav-icon" data-tooltip="My Profile">🙎🏻‍♂️</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tasks-container">
+            <div class="task-box" onclick="location.href='daily.html'">
+                <span class="task-label">Daily Tasks</span>
+            </div>
+            <div class="task-box" onclick="location.href='weekly.html'">
+                <span class="task-label">Weekly Tasks</span>
+            </div>
+            <div class="task-box" onclick="location.href='monthly.html'">
+                <span class="task-label">Monthly Tasks</span>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="friend-section">
+                <h3>Add User and Search User</h3>
+                <input type="text" placeholder="Search users..." id="searchUsers">
+                <button>Add Friend</button>
+                <div id="userResults"></div>
+            </div>
+            <div class="calendar-section">
+                <h3>Monthly Calendar</h3>
+                <p>Showcase important days</p>
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.task-box').forEach((box, index) => {
+                const pages = ['daily.html', 'weekly.html', 'monthly.html'];
+                box.addEventListener('click', () => window.location.href = pages[index]);
+            });
+        });
+    </script>
+
+</body>
+</html>
